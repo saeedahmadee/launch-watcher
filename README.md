@@ -1,2 +1,2 @@
 # launch-watcher
-Launch tells you about space rocket launches happening around the globe.
+Launch Watcher tells you about space rocket launches happening around the globe.
