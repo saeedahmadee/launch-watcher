@@ -1,8 +1,16 @@
 import React from 'react';
+import LaunchHero from '../components/LaunchHero';
 
 const IndexPage = () => (
     <div>
-        This is the index page.
+        <LaunchHero />
+        <div>
+            timer
+            21:02:01
+        </div>
+        <div>
+            5 nearest launches
+        </div>
     </div>
 );
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
 import IndexPage from '../components/IndexPage';
 import LaunchDetailsPage from '../components/LaunchDetailsPage';
@@ -12,7 +12,7 @@ const AppRouter = () => (
             <Header />
             <Switch>
                 <Route path="/" component={IndexPage} exact={true} />
-                <Route path="/launch" component={LaunchDetailsPage} />
+                <Route path="/launch/:id" component={LaunchDetailsPage} />
                 <Route path="/list" component={ListPage} />
                 <Route component={NotFoundPage} />
             </Switch>

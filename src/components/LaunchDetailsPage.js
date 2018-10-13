@@ -1,8 +1,8 @@
 import React from 'react';
 
-const LaunchDetailsPage = () => (
+const LaunchDetailsPage = (props) => (
     <div>
-        This is launch details page.
+        This is {props.match.params.id} launch details page.
     </div>
 );
 
