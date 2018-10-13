@@ -1,16 +1,12 @@
 import React from 'react';
 import LaunchHero from '../components/LaunchHero';
+import LaunchList from './LaunchList.js';
 
 const IndexPage = () => (
     <div>
         <LaunchHero />
-        <div>
-            timer
-            21:02:01
-        </div>
-        <div>
-            5 nearest launches
-        </div>
+        <br />
+        <LaunchList numberOfItems={5} />
     </div>
 );
 

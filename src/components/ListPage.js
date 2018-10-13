@@ -1,8 +1,9 @@
 import React from 'react';
+import LaunchList from './LaunchList.js';
 
 const ListPage = () => (
     <div>
-        This is list page.
+        <LaunchList numberOfItems={10} />
     </div>
 );
 
