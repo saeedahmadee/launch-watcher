@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment';
-import Countdown from './Countdown.js';
 import { Link } from 'react-router-dom'
 
-class LaunchHero extends Component {
-    state = {
-        launches: []
+class LaunchList extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            numberOfItems: props.numberOfItems ? props.numberOfItems : 1,
+            launches: []
+        };
     }
 
     componentDidMount() {
-        axios.get(`https://launchlibrary.net/1.4/launch/next/1`)
+        axios.get(`https://launchlibrary.net/1.4/launch/next/${this.state.numberOfItems}`)
             .then(res => {
                 const launches = res.data.launches;
                 this.setState(() => ({ launches }));
@@ -23,10 +26,9 @@ class LaunchHero extends Component {
     render() {
         return (
             <div>
-                {this.state.loading}
                 {
                     this.state.launches.map((launch, index) => (
-                        <Link to={`/launch/${launch.id}`} key={`launch-${index}`}>
+                        <Link to={`/launch/${launch.id}`} key={`item-${index}`}>
                             <div>
                                 <div>
                                     {launch.name}
@@ -35,9 +37,6 @@ class LaunchHero extends Component {
                                     {launch.location.name}
                                 </div>
                                 <br />
-                                <div>
-                                    <Countdown date={moment.unix(launch.netstamp).toDate().toISOString()} />
-                                </div>
                             </div>
                         </Link>
                     ))
@@ -47,4 +46,4 @@ class LaunchHero extends Component {
     }
 }
 
-export default LaunchHero;
+export default LaunchList;
