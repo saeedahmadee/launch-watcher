@@ -6,24 +6,28 @@ import { Link } from 'react-router-dom'
 
 class LaunchHero extends Component {
     state = {
-        launches: []
+        launches: [],
+        loading: true
     }
 
     componentDidMount() {
         API.get(`launch/next/1`)
             .then(res => {
                 const launches = res.data.launches;
-                this.setState(() => ({ launches }));
+                this.setState(() => ({ launches: launches, loading: false }));
             })
             .catch(error => {
                 console.log(error);
+                this.setState(() => ({ loading: false }));
             })
     }
 
     render() {
         return (
             <div>
-                {this.state.loading}
+                {
+                    this.state.loading ? <div>loading...</div> : ''
+                }
                 {
                     this.state.launches.map((launch, index) => (
                         <Link to={`/launch/${launch.id}`} key={`launch-${index}`}>
