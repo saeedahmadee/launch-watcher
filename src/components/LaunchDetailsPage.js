@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import API from './APIConfig';
 
 class LaunchDetailsPage extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class LaunchDetailsPage extends Component {
     }
 
     componentDidMount() {
-        axios.get(`https://launchlibrary.net/1.4/launch/${this.state.id}`)
+        API.get(`launch/${this.state.id}`)
             .then(res => {
                 const launches = res.data.launches;
                 this.setState(() => ({ launches }));

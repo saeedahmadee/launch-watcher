@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import API from './APIConfig';
 import { Link } from 'react-router-dom'
 
 class LaunchList extends Component {
@@ -13,7 +13,7 @@ class LaunchList extends Component {
     }
 
     componentDidMount() {
-        axios.get(`https://launchlibrary.net/1.4/launch/next/${this.state.numberOfItems}`)
+        API.get(`launch/next/${this.state.numberOfItems}`)
             .then(res => {
                 const launches = res.data.launches;
                 this.setState(() => ({ launches }));
