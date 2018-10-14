@@ -8,7 +8,8 @@ class LaunchList extends Component {
 
         this.state = {
             numberOfItems: props.numberOfItems ? props.numberOfItems : 1,
-            launches: []
+            launches: [],
+            loading: true
         };
     }
 
@@ -16,16 +17,20 @@ class LaunchList extends Component {
         API.get(`launch/next/${this.state.numberOfItems}`)
             .then(res => {
                 const launches = res.data.launches;
-                this.setState(() => ({ launches }));
+                this.setState(() => ({ launches: launches, loading: false }));
             })
             .catch(error => {
                 console.log(error);
+                this.setState(() => ({ loading: false }));
             })
     }
 
     render() {
         return (
             <div>
+                {
+                    this.state.loading ? <div>loading...</div> : ''
+                }
                 {
                     this.state.launches.map((launch, index) => (
                         <Link to={`/launch/${launch.id}`} key={`item-${index}`}>

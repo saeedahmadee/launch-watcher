@@ -7,7 +7,8 @@ class LaunchDetailsPage extends Component {
 
         this.state = {
             id: props.match.params.id ? props.match.params.id : '',
-            launches: []
+            launches: [],
+            loading: true
         };
     }
 
@@ -15,16 +16,20 @@ class LaunchDetailsPage extends Component {
         API.get(`launch/${this.state.id}`)
             .then(res => {
                 const launches = res.data.launches;
-                this.setState(() => ({ launches }));
+                this.setState(() => ({ launches: launches, loading: false }));
             })
             .catch(error => {
                 console.log(error);
+                this.setState(() => ({ loading: false }));
             })
     }
 
     render() {
         return (
             <div>
+                {
+                    this.state.loading ? <div>loading...</div> : ''
+                }
                 {
                     this.state.launches.map((launch, index) => (
                         <div key={`item-${index}`}>
