@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import API from './APIConfig';
 import moment from 'moment';
 import Countdown from './Countdown.js';
 import { Link } from 'react-router-dom'
@@ -10,7 +10,7 @@ class LaunchHero extends Component {
     }
 
     componentDidMount() {
-        axios.get(`https://launchlibrary.net/1.4/launch/next/1`)
+        API.get(`launch/next/1`)
             .then(res => {
                 const launches = res.data.launches;
                 this.setState(() => ({ launches }));
