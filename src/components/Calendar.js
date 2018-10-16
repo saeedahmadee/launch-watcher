@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DayPicker from 'react-day-picker';
 import API from './APIConfig';
 import moment from 'moment';
+import { Link } from 'react-router-dom'
 import 'react-day-picker/lib/style.css';
 
 class Calendar extends Component {
@@ -9,7 +10,8 @@ class Calendar extends Component {
         super(props);
 
         this.state = {
-            birthdays: {}
+            birthdays: {},
+            loading: true
         };
 
         this.renderDay = this.renderDay.bind(this);
@@ -33,15 +35,19 @@ class Calendar extends Component {
                 }
             }
             this.setState((prevState) => ({ birthdays: {...prevState.birthdays, ...newState} }));
+            this.setState(() => ({ loading: false }));
         })
         .catch(error => {
             console.log(error);
+            this.setState(() => ({ loading: false }));
         });
     }
 
     showNextMonth() {
+        this.setState(() => ({ loading: true }));
         this.dayPicker.showNextMonth();
-        let month = this.dayPicker.state.currentMonth.getMonth()+1;
+        let month = this.dayPicker.state.currentMonth.getMonth()+2;
+        month = month < 10 ? '0' + month : month;
         let thisMonth = moment((new Date())).format('YYYY-');
         thisMonth = thisMonth + month + "-";
         API.get(`launch/${thisMonth}01/${thisMonth}31`)
@@ -56,15 +62,19 @@ class Calendar extends Component {
                 }
             }
             this.setState((prevState) => ({ birthdays: {...prevState.birthdays, ...newState} }));
+            this.setState(() => ({ loading: false }));
         })
         .catch(error => {
             console.log(error);
+            this.setState(() => ({ loading: false }));
         });
     }
 
     showPrevMonth() {
+        this.setState(() => ({ loading: true }));
         this.dayPicker.showPreviousMonth();
-        let month = this.dayPicker.state.currentMonth.getMonth()+1;
+        let month = this.dayPicker.state.currentMonth.getMonth();
+        month = month < 10 ? '0' + month : month;
         let thisMonth = moment((new Date())).format('YYYY-');
         thisMonth = thisMonth + month + "-";
         API.get(`launch/${thisMonth}01/${thisMonth}31`)
@@ -79,10 +89,11 @@ class Calendar extends Component {
                 }
             }
             this.setState((prevState) => ({ birthdays: {...prevState.birthdays, ...newState} }));
-            this.renderDay();
+            this.setState(() => ({ loading: false }));
         })
         .catch(error => {
             console.log(error);
+            this.setState(() => ({ loading: false }));
         });
     }
 
@@ -92,6 +103,8 @@ class Calendar extends Component {
             month: day.getMonth() + 1,
             day: day.getDate()
         };
+        date.month = date.month < 10 ? '0' + date.month : date.month;
+        date.day = date.day < 10 ? '0' + date.day : date.day;
         const dateStyle = {
           position: 'absolute',
           color: 'lightgray',
@@ -105,23 +118,27 @@ class Calendar extends Component {
           position: 'relative',
         };
         return (
-          <a href="test">
+          <Link to={`/range/${date.year + '-' + date.month + '-' + date.day}/${date.year + '-' + date.month + '-' + date.day}`}>
               <div style={cellStyle}>
               <div style={dateStyle}>{date.day}</div>
                   <div>
                       {this.state.birthdays[date.year + '_' + date.month + '_' + date.day]} 
                   </div>
               </div>
-          </a>
+          </Link>
         );
       }
     render() {
         return (
             <div>
-                <span onClick={this.showPrevMonth}>showPrevMonth></span>
-                <span onClick={this.showNextMonth}>showNextMonth></span>
+                <span onClick={this.showPrevMonth}>(showPrevMonth</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span onClick={this.showNextMonth}>showNextMonth)</span>
+                {
+                    this.state.loading ? <div>loading...</div> : ''
+                }
                 <DayPicker
-                ref={ el => this.dayPicker = el }
+                    ref={ el => this.dayPicker = el }
                     canChangeMonth={true}
                     className="launches-calendar"
                     renderDay={this.renderDay}

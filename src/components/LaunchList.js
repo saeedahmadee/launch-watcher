@@ -8,21 +8,37 @@ class LaunchList extends Component {
 
         this.state = {
             numberOfItems: props.numberOfItems ? props.numberOfItems : 1,
+            listType: props.listType ? props.listType : 'nextList',
+            startDate: props.startDate ? props.startDate : '',
+            endDate: props.endDate ? props.endDate : '',
             launches: [],
             loading: true
         };
     }
 
     componentDidMount() {
-        API.get(`launch/next/${this.state.numberOfItems}`)
-            .then(res => {
-                const launches = res.data.launches;
-                this.setState(() => ({ launches: launches, loading: false }));
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState(() => ({ loading: false }));
-            })
+        if (this.state.listType === 'nextList') {
+            API.get(`launch/next/${this.state.numberOfItems}`)
+                .then(res => {
+                    const launches = res.data.launches;
+                    this.setState(() => ({ launches: launches, loading: false }));
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.setState(() => ({ loading: false }));
+                })
+        } else if (this.state.listType === 'dateRange') {
+            API.get(`launch/${this.state.startDate}/${this.state.endDate}`)
+                .then(res => {
+                    const launches = res.data.launches;
+                    this.setState(() => ({ launches: launches, loading: false }));
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.setState(() => ({ loading: false }));
+                })
+        }
+        
     }
 
     render() {
