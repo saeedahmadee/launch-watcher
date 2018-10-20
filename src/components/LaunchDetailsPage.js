@@ -34,6 +34,9 @@ class LaunchDetailsPage extends Component {
                     this.state.launches.map((launch, index) => (
                         <div key={`item-${index}`}>
                             <div>
+                                <img width="200px" src={launch.rocket.imageURL} />
+                            </div>
+                            <div>
                                 {launch.name}
                             </div>
                             <div>

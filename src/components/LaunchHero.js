@@ -11,10 +11,10 @@ class LaunchHero extends Component {
     }
 
     componentDidMount() {
-        API.get(`launch/next/1`)
+        API.get(`launch/next/2`)
             .then(res => {
                 const launches = res.data.launches;
-                this.setState(() => ({ launches: launches, loading: false }));
+                this.setState(() => ({ launches: launches[0].netstamp > 0 ? [launches[0]] : [launches[1]], loading: false }));
             })
             .catch(error => {
                 console.log(error);
@@ -30,19 +30,19 @@ class LaunchHero extends Component {
                 }
                 {
                     this.state.launches.map((launch, index) => (
-                        <Link to={`/launch/${launch.id}`} key={`launch-${index}`}>
-                            <div>
-                                <div>
+                        <Link className="hero" to={`/launch/${launch.id}`} key={`launch-${index}`}>
+                            <div className="hero__wrapper">
+                                <div className="hero__text">
+                                    {launch.lsp.name}
+                                </div>
+                                <div className="hero__text hero__main">
                                     {launch.name}
                                 </div>
-                                <div>
+                                <div className="hero__text">
                                     {launch.location.name}
                                 </div>
-                                <br />
-                                <div>
-                                    <Countdown date={moment.unix(launch.netstamp).toDate().toISOString()} />
-                                </div>
                             </div>
+                            <Countdown date={moment.unix(launch.netstamp).toDate().toISOString()} />
                         </Link>
                     ))
                 }
