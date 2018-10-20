@@ -6,7 +6,7 @@ const IndexPage = () => (
     <div>
         <LaunchHero />
         <br />
-        <LaunchList numberOfItems={5} />
+        <LaunchList listType='nextList' numberOfItems={5} />
     </div>
 );
 
