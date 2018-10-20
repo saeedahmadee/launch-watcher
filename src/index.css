@@ -1,0 +1,268 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* base */
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('fonts/OpenSans-Regular.eot'); /* IE9 Compat Modes */
+    src: url('fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('fonts/OpenSans-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+            url('fonts/OpenSans-Regular.woff') format('woff'), /* Pretty Modern Browsers */
+            url('fonts/OpenSans-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+            url('fonts/OpenSans-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+body {
+    background-color: #373A42;
+    color: #FFF;
+    font-family: OpenSans;
+}
+
+.main-wrapper {
+    margin-bottom: 80px;
+}
+
+/* header */
+
+.header {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #3D414A;
+}
+
+.header__item {
+    display: block;
+    float: left;
+    width: calc(100% / 4);
+    height: 100%;
+    font-size: 12px;
+    color: #72757B;
+    text-align: center;
+    text-decoration: none;
+}
+
+.header__item.is-active {
+    color: #FFF;
+}
+
+.header__icon {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.header__icon svg {
+    fill: #72757B;
+}
+
+.header__item.is-active .header__icon svg {
+    fill: #FFF;
+}
+
+.hero {
+    text-decoration: none;
+}
+
+.hero__wrapper {
+    margin: 20px;
+    padding: 10px;
+    background-color: #4a505c;
+    text-align: center;
+}
+
+.hero__text {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    color: #9da0a4;
+    font-size: 13px;
+    line-height: 200%;
+}
+
+.hero__main {
+    color: #FFF;
+    font-size: 18px;
+}
+
+.Countdown {
+    margin-bottom: 20px;
+    color: #FFF;
+    text-align: center;
+}
+
+.Countdown-col-element {
+    display: inline-block;
+}
+
+.Countdown-col-element strong {
+    display: inline-block;
+}
+
+.Countdown-col-element i {
+    display: inline-block;
+    margin: 0 14px;
+    text-decoration: none;
+    font-size: 32px;
+    animation-duration: 2s;
+    animation-name: blink-animation;
+    animation-iteration-count: infinite;
+}
+
+@keyframes blink-animation {
+    0%   {opacity: 0;}
+    1%   {opacity: 1;}
+    50%  {opacity: 1;}
+    51%  {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+.Countdown-col-element span {
+    display: block;
+}
+
+.Countdown-col-element strong {
+    font-size: 32px;
+}
+
+.Countdown-col-element span {
+    margin-top: 6px;
+    font-size: 10px;
+    text-align: left;
+    text-indent: 5px;
+    text-transform: uppercase;
+    color: #9da0a4;
+}
+
+.Countdown-col:nth-child(2) .Countdown-col-element span {
+    text-indent: 1px;
+}
+.Countdown-col:nth-child(3) .Countdown-col-element span {
+    text-indent: -3px;
+}
+.Countdown-col:nth-child(4) .Countdown-col-element span {
+    text-indent: 1px;
+}
+
+.list {
+    padding: 8px 20px;
+    background-color: #4a505c;
+}
+
+.list__link {
+    position: relative;
+    display: block;
+    margin-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 40px;
+    text-decoration: none;
+    border-bottom: 1px solid #363a42;
+    color: #9da0a4;
+}
+
+.list__link:last-child {
+    border: 0;
+}
+
+.list__date {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.list__date span {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.list__date .day {
+    font-size: 26px;
+}
+
+.list__date .month {
+    font-size: 17px;
+}
+
+.list__detail {
+    color: #FFF;
+}
+
+.list__name, .list__location {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list__name {
+    font-size: 15px;
+    line-height: 180%;
+}
+
+.list__location {
+    font-size: 12px;
+    color: #9da0a4;
+}
+
+.list__more {
+    display: block;
+    padding: 10px 0 20px 0;
+    background-color: #4a505c;
+    text-align: center;
+    text-decoration: none;
+    color: #9da0a4;
+}
