@@ -11,10 +11,14 @@ class LaunchHero extends Component {
     }
 
     componentDidMount() {
-        API.get(`launch/next/2`)
+        API.get(`launch/next/10`)
             .then(res => {
                 const launches = res.data.launches;
-                this.setState(() => ({ launches: launches[0].netstamp > 0 ? [launches[0]] : [launches[1]], loading: false }));
+                let i = 0;
+                while (!(launches[i].netstamp > 0 && !launches[i].tbddate)) {
+                    i++;
+                }
+                this.setState(() => ({ launches: [launches[i]], loading: false }));
             })
             .catch(error => {
                 console.log(error);
@@ -25,9 +29,6 @@ class LaunchHero extends Component {
     render() {
         return (
             <div>
-                {
-                    this.state.loading ? <div>loading...</div> : ''
-                }
                 {
                     this.state.launches.map((launch, index) => (
                         <Link className="hero" to={`/launch/${launch.id}`} key={`launch-${index}`}>

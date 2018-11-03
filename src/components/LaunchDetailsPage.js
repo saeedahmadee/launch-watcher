@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import API from './APIConfig';
+import moment from 'moment';
+import Loading from './Loading';
 
 class LaunchDetailsPage extends Component {
     constructor(props) {
@@ -28,31 +30,37 @@ class LaunchDetailsPage extends Component {
         return (
             <div>
                 {
-                    this.state.loading ? <div>loading...</div> : ''
+                    this.state.loading ? <Loading /> : ''
                 }
                 {
                     this.state.launches.map((launch, index) => (
-                        <div key={`item-${index}`}>
-                            <div>
-                                <img width="200px" src={launch.rocket.imageURL} />
+                        <div className="details" key={`item-${index}`}>
+                            <div className="details__image">
+                                <img alt={launch.name} src={launch.rocket.imageURL} />
                             </div>
-                            <div>
-                                {launch.name}
+                            <div className="hero">
+                                <div className="hero__wrapper">
+                                    <div className="hero__text">
+                                        {launch.lsp.name}
+                                    </div>
+                                    <div className="hero__text hero__main">
+                                        {launch.name}
+                                    </div>
+                                    <div className="hero__text">
+                                        {launch.location.name}
+                                    </div>
+                                    <div className="hero__text">
+                                        {!launch.tbddate && moment(launch.isonet).format('dddd, MMMM D YYYY')}
+                                        {!launch.tbdtime && moment(launch.isonet).format(', hh:mm A')}
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                {launch.location.name}
-                            </div>
-                            <br />
                             {
                                 launch.missions.map((mission, index) => (
-                                    <div key={`item-${index}`}>
-                                        <div>
-                                            {mission.name}
-                                        </div>
+                                    <div className="details__description" key={`item-${index}`}>
                                         <div>
                                             {mission.description}
                                         </div>
-                                        <br />
                                     </div>
                                 ))
                             }
