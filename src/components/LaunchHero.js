@@ -11,10 +11,14 @@ class LaunchHero extends Component {
     }
 
     componentDidMount() {
-        API.get(`launch/next/1`)
+        API.get(`launch/next/10`)
             .then(res => {
                 const launches = res.data.launches;
-                this.setState(() => ({ launches: launches, loading: false }));
+                let i = 0;
+                while (!(launches[i].netstamp > 0 && !launches[i].tbddate)) {
+                    i++;
+                }
+                this.setState(() => ({ launches: [launches[i]], loading: false }));
             })
             .catch(error => {
                 console.log(error);
@@ -26,23 +30,20 @@ class LaunchHero extends Component {
         return (
             <div>
                 {
-                    this.state.loading ? <div>loading...</div> : ''
-                }
-                {
                     this.state.launches.map((launch, index) => (
-                        <Link to={`/launch/${launch.id}`} key={`launch-${index}`}>
-                            <div>
-                                <div>
+                        <Link className="hero" to={`/launch/${launch.id}`} key={`launch-${index}`}>
+                            <div className="hero__wrapper">
+                                <div className="hero__text">
+                                    {launch.lsp.name}
+                                </div>
+                                <div className="hero__text hero__main">
                                     {launch.name}
                                 </div>
-                                <div>
+                                <div className="hero__text">
                                     {launch.location.name}
                                 </div>
-                                <br />
-                                <div>
-                                    <Countdown date={moment.unix(launch.netstamp).toDate().toISOString()} />
-                                </div>
                             </div>
+                            <Countdown date={moment.unix(launch.netstamp).toDate().toISOString()} />
                         </Link>
                     ))
                 }
