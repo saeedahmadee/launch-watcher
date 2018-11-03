@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DayPicker from 'react-day-picker';
 import API from './APIConfig';
+import Loading from './Loading';
 import moment from 'moment';
 import { Link } from 'react-router-dom'
 import 'react-day-picker/lib/style.css';
@@ -105,37 +106,21 @@ class Calendar extends Component {
         };
         date.month = date.month < 10 ? '0' + date.month : date.month;
         date.day = date.day < 10 ? '0' + date.day : date.day;
-        const dateStyle = {
-          position: 'absolute',
-          color: 'lightgray',
-          bottom: 0,
-          right: 0,
-          fontSize: 20,
-        };
-        const cellStyle = {
-          height: 50,
-          width: 60,
-          position: 'relative',
-        };
         return (
-          <Link to={`/range/${date.year + '-' + date.month + '-' + date.day}/${date.year + '-' + date.month + '-' + date.day}`}>
-              <div style={cellStyle}>
-              <div style={dateStyle}>{date.day}</div>
-                  <div>
-                      {this.state.birthdays[date.year + '_' + date.month + '_' + date.day]} 
-                  </div>
-              </div>
-          </Link>
+            <Link to={`/range/${date.year + '-' + date.month + '-' + date.day}/${date.year + '-' + date.month + '-' + date.day}`}>
+                <div className="daypicker__cell">
+                    <div className={"daypicker__cellday " + (this.state.birthdays[date.year + '_' + date.month + '_' + date.day] ? 'daypicker__indicate' : '')}>
+                        {date.day}
+                    </div>
+                </div>
+            </Link>
         );
       }
     render() {
         return (
             <div>
-                <span onClick={this.showPrevMonth}>(showPrevMonth</span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span onClick={this.showNextMonth}>showNextMonth)</span>
                 {
-                    this.state.loading ? <div>loading...</div> : ''
+                    this.state.loading ? <Loading /> : ''
                 }
                 <DayPicker
                     ref={ el => this.dayPicker = el }
@@ -143,6 +128,10 @@ class Calendar extends Component {
                     className="launches-calendar"
                     renderDay={this.renderDay}
                 />
+                <div className="calendar__navigation">
+                    <button onClick={this.showPrevMonth}>{'<'}</button>
+                    <button onClick={this.showNextMonth}>></button>
+                </div>
             </div>
             
         );

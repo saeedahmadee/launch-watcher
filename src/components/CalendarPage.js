@@ -4,7 +4,7 @@ import Calendar from './Calendar.js';
 class CalendarPage extends Component {
     render() {
         return (
-            <div>
+            <div className="calendar__wrapper">
                 <Calendar />
             </div>
         );

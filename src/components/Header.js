@@ -7,30 +7,32 @@ import SvgInfo from './icons/info';
 
 const Header = () => (
     <header className='header'>
-        <NavLink to="/" className="header__item" activeClassName="is-active" exact={true}>
-            <div className="header__icon">
-                <SvgStartup width="32px" height="40px"/>
-            </div>
-            Home
-        </NavLink>
-        <NavLink to="/list" className="header__item" activeClassName="is-active">
-            <div className="header__icon">
-                <SvgList width="30px" height="40px"/>
-            </div>
-            List
-        </NavLink>
-        <NavLink to="/calendar" className="header__item" activeClassName="is-active">
-            <div className="header__icon">
-                <SvgCalendar width="30px" height="40px"/>
-            </div>
-            Calendar
-        </NavLink>
-        <NavLink to="/about" className="header__item" activeClassName="is-active">
-            <div className="header__icon">
-                <SvgInfo width="28px" height="40px"/>
-            </div>
-            About
-        </NavLink>
+        <div className="header__inner">
+            <NavLink to="/" className="header__item" activeClassName="is-active" exact={true}>
+                <div className="header__icon">
+                    <SvgStartup width="32px" height="40px"/>
+                </div>
+                Home
+            </NavLink>
+            <NavLink to="/list" className="header__item" activeClassName="is-active">
+                <div className="header__icon">
+                    <SvgList width="30px" height="40px"/>
+                </div>
+                List
+            </NavLink>
+            <NavLink to="/calendar" className="header__item" activeClassName="is-active">
+                <div className="header__icon">
+                    <SvgCalendar width="30px" height="40px"/>
+                </div>
+                Calendar
+            </NavLink>
+            <NavLink to="/about" className="header__item" activeClassName="is-active">
+                <div className="header__icon">
+                    <SvgInfo width="28px" height="40px"/>
+                </div>
+                About
+            </NavLink>
+        </div>
     </header>
 );
 

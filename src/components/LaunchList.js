@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import API from './APIConfig';
 import { Link } from 'react-router-dom'
+import Loading from './Loading';
 
 class LaunchList extends Component {
     constructor(props) {
@@ -46,15 +47,22 @@ class LaunchList extends Component {
         return (
             <div className="list">
                 {
-                    this.state.loading ? <div>loading...</div> : ''
+                    this.state.loading ? <Loading /> : ''
                 }
                 {
                     this.state.launches.map((launch, index) => (
                         <Link className="list__link" to={`/launch/${launch.id}`} key={`item-${index}`}>
-                            <div className="list__date">
-                                <span className="day">{moment(launch.isonet).format('DD').slice(0, 3)}</span>
-                                <span className="month">{moment(launch.isonet).format('MMMM').slice(0, 3)}</span>
-                            </div>
+                            {!launch.tbdtime &&
+                                <div className="list__date">
+                                    <span className="day">{moment(launch.isonet).format('DD').slice(0, 3)}</span>
+                                    <span className="month">{moment(launch.isonet).format('MMMM').slice(0, 3)}</span>
+                                </div>
+                            }
+                            {!!launch.tbdtime &&
+                                <div className="list__date">
+                                    <span className="tbd">TBD</span>
+                                </div>
+                            }
                             <div className="list__detail">
                                 <div className="list__name">
                                     {launch.name}
